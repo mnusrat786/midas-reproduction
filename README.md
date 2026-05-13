@@ -38,7 +38,7 @@ midas-reproduction/
 ## Installation
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/midas-reproduction.git
+git clone https://github.com/mnusrat786/midas-reproduction.git
 cd midas-reproduction
 pip install -r requirements.txt
 ```
