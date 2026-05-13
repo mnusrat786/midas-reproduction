@@ -1,0 +1,57 @@
+HOW TO RUN EVERYTHING
+=====================
+
+STEP 1 - Install Python packages (only once)
+---------------------------------------------
+pip install numpy pandas scikit-learn matplotlib
+
+
+STEP 2 - Put the data files in the right folders
+-------------------------------------------------
+Copy these files into midas-reproduction/data/darpa/
+  - darpa_processed.csv
+  - darpa_ground_truth.csv
+
+Copy these files into midas-reproduction/data/primary_school/
+  - primaryschool.csv
+  - primaryschool_metadata.txt
+
+Copy this file into midas-reproduction/data/hospital/
+  - detailed_list_of_contacts_Hospital.dat
+
+
+STEP 3 - Run the experiments
+-----------------------------
+
+To get figures for the new datasets (Primary School + Hospital):
+  python experiments/run_new_datasets.py
+  Takes about 15 seconds.
+
+To reproduce the paper figures (DARPA):
+  python experiments/run_darpa.py
+  WARNING: This takes about 30-40 minutes.
+
+
+STEP 4 - Find your figures
+---------------------------
+All figures are saved in the figures/ folder.
+
+New dataset figures:
+  ps_scores_over_time.png      - anomaly scores over time (primary school)
+  ps_roc.png                   - ROC curve (primary school)
+  ps_top_anomalies.png         - top 20 anomalous contacts
+  ps_score_by_class.png        - scores per class
+  ps_score_by_gender.png       - scores by gender
+  hospital_scores_over_time.png
+  hospital_roc.png
+  hospital_top_anomalies.png
+  hospital_score_by_role.png
+
+Paper figures:
+  figure2_roc.png
+  figure3_auc_ap_vs_time.png
+
+
+NOTE
+----
+Run all commands from inside the midas-reproduction/ folder.
