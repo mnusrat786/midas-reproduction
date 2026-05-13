@@ -1,0 +1,18 @@
+# Data files (too large for GitHub)
+data/darpa/darpa_processed.csv
+data/darpa/darpa_original.zip
+data/twitter/*.txt
+data/primary_school/primaryschool.csv
+data/hospital/*.dat
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+venv/
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
