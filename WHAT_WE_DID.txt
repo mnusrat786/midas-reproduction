@@ -1,0 +1,103 @@
+WHAT WE DID - SIMPLE EXPLANATION
+=================================
+
+THE PROBLEM
+-----------
+The original MIDAS code is in C++.
+We could not run it easily.
+So we rewrote everything in Python.
+
+
+STEP 1 - We read the paper
+--------------------------
+We read the MIDAS paper from arxiv.
+The paper has these figures:
+  Figure 1 - a time series showing a burst of activity
+  Figure 2 - ROC curve comparing MIDAS vs SedanSpot
+  Figure 3 - accuracy vs speed comparison
+  Figure 4 - how fast MIDAS scales with more data
+  Figure 5 - how long each edge takes to process
+  Figure 6 - anomaly scores on Twitter data over time
+
+
+STEP 2 - We implemented the algorithm in Python
+------------------------------------------------
+We created 4 Python files:
+
+  count_min_sketch.py
+    This is the memory structure MIDAS uses.
+    It counts how many times each edge appeared
+    without storing every edge.
+
+  midas.py
+    The basic MIDAS algorithm.
+    For each edge (u, v, t) it computes a score:
+    score = (current count - expected count)^2 / expected count
+    High score = anomaly (sudden burst)
+
+  midas_r.py
+    Improved version of MIDAS.
+    Also tracks node-level counts (not just edge counts).
+    Uses decay so recent edges matter more.
+    Gets higher AUC than basic MIDAS.
+
+  sedanspot.py
+    The baseline algorithm from the paper.
+    Uses random walks to score edges.
+    Much slower than MIDAS.
+
+
+STEP 3 - We ran on DARPA dataset
+---------------------------------
+DARPA has 4.5 million network connections.
+Some are attacks, some are normal.
+We ran all 3 algorithms and got:
+  MIDAS   AUC = 0.87  (paper says 0.91)
+  MIDAS-R AUC = 0.96  (paper says 0.95)
+  SedanSpot AUC = 0.60  (paper says 0.64)
+Close to the paper. Small difference because Python vs C++.
+
+
+STEP 4 - We reproduced all figures
+------------------------------------
+Figure 1 - drew the time series plot manually (no data needed)
+Figure 2 - plotted ROC curves from the scores we computed
+Figure 3 - plotted AUC vs time for all 3 methods
+Figure 4 - ran MIDAS on different dataset sizes and timed it
+Figure 5 - bar chart using numbers from the paper directly
+Figure 6 - ran MIDAS on the Twitter dataset you provided
+
+
+STEP 5 - We applied MIDAS to new datasets
+------------------------------------------
+Professor asked us to try MIDAS on different data.
+We used:
+
+  Primary School dataset (125,773 contacts between children)
+    - Each contact is an edge: child A touched child B at time T
+    - We defined anomaly = children from DIFFERENT classes touching
+    - MIDAS AUC = 0.65 (detects cross-class bursts during breaks)
+    - Used metadata file to add gender info to results
+
+  Hospital dataset (32,424 contacts between patients and staff)
+    - Each contact is an edge: person A touched person B at time T
+    - We defined anomaly = patient touching another patient
+    - MIDAS AUC = 0.75 (detects unusual patient-patient bursts)
+
+
+STEP 6 - We organized everything into a clean repo
+----------------------------------------------------
+src/          - the algorithm code (4 files)
+experiments/  - scripts to run the experiments (2 files)
+plots/        - functions to draw the figures (1 file)
+data/         - where to put the datasets
+figures/      - where the output images are saved
+README.md     - full documentation
+HOW_TO_RUN.txt - simple instructions
+
+
+FILES SUMMARY
+-------------
+Total new Python files we wrote: 7
+Total figures produced: 15
+Datasets used: 4 (DARPA, Twitter, Primary School, Hospital)

@@ -1,0 +1,111 @@
+START FROM SCRATCH - NEW DEVICE
+================================
+This tells you exactly what to do if you have nothing.
+Follow these steps in order.
+
+
+STEP 1 - Install Python
+------------------------
+Download Python 3.8 or higher from:
+  https://www.python.org/downloads/
+
+During install, tick the box that says "Add Python to PATH"
+
+
+STEP 2 - Install Git
+---------------------
+Download Git from:
+  https://git-scm.com/downloads
+
+Install with default settings.
+
+
+STEP 3 - Clone the repo
+------------------------
+Open a terminal (Command Prompt or PowerShell) and run:
+
+  git clone https://github.com/mnusrat786/midas-reproduction.git
+  cd midas-reproduction
+
+
+STEP 4 - Install required Python packages
+------------------------------------------
+  pip install numpy pandas scikit-learn matplotlib
+
+
+STEP 5 - Download the datasets
+--------------------------------
+
+DARPA dataset (for paper figures):
+  1. Go to: https://www.ll.mit.edu/r-d/datasets/1998-darpa-intrusion-detection-evaluation-dataset
+  2. Download the 1998 dataset
+  3. Run the preprocessing script to get the CSV files
+     OR ask someone for darpa_processed.csv and darpa_ground_truth.csv
+  4. Put both files in:  data/darpa/
+
+Primary School dataset:
+  1. Go to: https://sociopatterns.org/datasets/primary-school-temporal-network-data/
+  2. Download primaryschool.csv and primaryschool_metadata.txt
+  3. Put both files in:  data/primary_school/
+
+Hospital dataset:
+  1. Go to: https://sociopatterns.org/datasets/hospital-ward-dynamic-contact-network/
+  2. Download detailed_list_of_contacts_Hospital.dat
+  3. Put the file in:  data/hospital/
+
+
+STEP 6 - Run on new datasets (quick, 15 seconds)
+-------------------------------------------------
+  python experiments/run_new_datasets.py
+
+This will create 9 figures in the figures/ folder.
+
+
+STEP 7 - Reproduce paper figures (slow, 30-40 minutes)
+-------------------------------------------------------
+  python experiments/run_darpa.py
+
+This will create figure2_roc.png and figure3_auc_ap_vs_time.png
+
+
+STEP 8 - View your figures
+---------------------------
+Open the figures/ folder.
+All PNG files are there.
+
+
+THAT IS IT.
+===========
+You do not need to write any code.
+You do not need to understand C++.
+Everything runs with the 2 commands in Step 6 and Step 7.
+
+
+FOLDER STRUCTURE (what each file does)
+---------------------------------------
+src/count_min_sketch.py   - memory structure used by MIDAS
+src/midas.py              - basic MIDAS algorithm
+src/midas_r.py            - improved MIDAS with node counts and decay
+src/sedanspot.py          - baseline comparison algorithm
+
+experiments/run_darpa.py          - runs on DARPA, makes paper figures
+experiments/run_new_datasets.py   - runs on Primary School and Hospital
+
+plots/plot_figures.py     - draws all the graphs
+
+data/darpa/               - put DARPA files here
+data/primary_school/      - put Primary School files here
+data/hospital/            - put Hospital files here
+figures/                  - output figures appear here
+
+
+COMMON ERRORS
+-------------
+"ModuleNotFoundError: No module named numpy"
+  Fix: pip install numpy pandas scikit-learn matplotlib
+
+"FileNotFoundError: darpa_processed.csv"
+  Fix: You forgot to put the data files in the data/ folders (see Step 5)
+
+"git is not recognized"
+  Fix: You forgot to install Git (see Step 2)
